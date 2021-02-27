@@ -14,8 +14,7 @@ class DatabaseHelper {
   String columnName = "name";
   String columnCon = "continuous";
 
-
-  factory DatabaseHelper(){
+  factory DatabaseHelper() {
     if (_databaseHelper == null) {
       _databaseHelper = DatabaseHelper._internal();
       return _databaseHelper;
@@ -43,23 +42,36 @@ class DatabaseHelper {
     return studentDb;
   }
 
-  FutureOr<void> _onCreateM(Database db, int version) async{
-    await db.execute("CREATE TABLE $databaseName ($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnName TEXT, $columnCon INTEGER )");
+  FutureOr<void> _onCreateM(Database db, int version) async {
+    await db.execute(
+        "CREATE TABLE $databaseName ($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnName TEXT, $columnCon INTEGER )");
     debugPrint("veri tabanı oluşturuldu");
   }
 
-
-  Future<List<Map>> getAllStudents()async{
+  Future<List<Map>> getAllStudents() async {
     Database db = await _getDatabase();
-    var result= await db.query(databaseName,orderBy:'$columnId DESC');
+    var result = await db.query(databaseName, orderBy: '$columnId DESC');
     return result;
-
   }
 
-  Future<int> addDatabase(Student student) async{
-  Database db = await _getDatabase();
-  var result= await db.insert(databaseName,student.toMap(),nullColumnHack:"$columnId" );
-  return result;
+  Future<int> addDatabase(Student student) async {
+    Database db = await _getDatabase();
+    var result = await db.insert(databaseName, student.toMap(),
+        nullColumnHack: "$columnId");
+    return result;
   }
 
+  Future<int> update(Student student) async {
+    Database db = await _getDatabase();
+    var result = await db.update(databaseName, student.toMap(),
+        where: '$columnId =?', whereArgs: [student.id]);
+    return result;
+  }
+
+  Future<int> delete(int id) async {
+    Database db = await _getDatabase();
+    var result =
+        await db.delete(databaseName, where: '$columnId = ?', whereArgs: [id]);
+    return result;
+  }
 }

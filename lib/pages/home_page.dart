@@ -19,6 +19,7 @@ DatabaseHelper databaseHelper = DatabaseHelper();
   @override
   Widget build(BuildContext context) {
     databaseHelper.addDatabase(Student("tuba", 1));
+    
     getStudents();
     return Scaffold(
       appBar: AppBar(

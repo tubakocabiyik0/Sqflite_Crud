@@ -74,4 +74,10 @@ class DatabaseHelper {
         await db.delete(databaseName, where: '$columnId = ?', whereArgs: [id]);
     return result;
   }
+
+  Future<int> deleteAll() async {
+    Database db = await _getDatabase();
+    int rowCount = await db.delete(databaseName);
+    return rowCount;
+  }
 }

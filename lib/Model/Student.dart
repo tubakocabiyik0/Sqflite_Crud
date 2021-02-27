@@ -1,8 +1,16 @@
-import 'package:flutter/material.dart';
 class Student {
-  int _id;
   String _name;
+  int _id;
   int _continuous;
+
+  Student(this._name, this._continuous);
+  Student.withId(this._name, this._id, this._continuous);
+
+  int get continuous => _continuous;
+
+  set continuous(int value) {
+    _continuous = value;
+  }
 
   int get id => _id;
 
@@ -12,33 +20,22 @@ class Student {
 
   String get name => _name;
 
-  int get continuous => _continuous;
-
-  set continuous(int value) {
-    _continuous = value;
-  }
-
   set name(String value) {
     _name = value;
   }
-
-  Student(this._name,this._continuous);
-  Student.WidhtId(this._id,this._name,this._continuous);
-
   Map<String,dynamic> toMap(){
-    Map<String,dynamic> map ;
-    map['id'] = id;
-    map['name'] = name;
-    map['continuous'] = continuous;
-
+    var map=Map<String,dynamic>();
+    
+    map['id']=_id;
+    map['name']=_name;
+    map['continuous']=_continuous;
+    return map;
   }
-
-  Student fromMap (Map<String,dynamic> map){
-    id=map['id'];
-    name=map['name'];
-    continuous=map['continuous'];
-  }
-
-}
+  
+  Student.fromMap(Map<String,dynamic> map){
+    this._id=map['id'];
+    this._name=map['name'];
+    this._continuous=map['continuous'];
 
 
+  }}

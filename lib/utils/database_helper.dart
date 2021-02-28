@@ -51,6 +51,7 @@ class DatabaseHelper {
   Future<List<Map>> getAllStudents() async {
     Database db = await _getDatabase();
     var result = await db.query(databaseName, orderBy: '$columnId DESC');
+    debugPrint(result.toString());
     return result;
   }
 

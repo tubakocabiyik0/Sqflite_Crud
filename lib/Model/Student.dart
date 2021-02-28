@@ -38,4 +38,6 @@ class Student {
     this._continuous=map['continuous'];
 
 
-  }}
+  }
+
+  }
